@@ -1,0 +1,9 @@
+# 钉钉
+dinging:
+  access_token: "xxx"
+  # 设置了 secret 表示对消息内容进行加密
+  secret: "xxx"
+
+# 企业微信
+wechat:
+  key: "xxx"
