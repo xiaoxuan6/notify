@@ -3,6 +3,7 @@ module github.com/xiaoxuan6/notify
 go 1.18
 
 require (
+	github.com/go-resty/resty/v2 v2.7.0
 	github.com/spf13/viper v1.11.0
 	github.com/stretchr/testify v1.7.1
 	github.com/xiaoxuan6/ding-talk v0.0.0-20220518095008-670d9b98c60d
@@ -12,7 +13,6 @@ require (
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
-	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mitchellh/mapstructure v1.4.3 // indirect

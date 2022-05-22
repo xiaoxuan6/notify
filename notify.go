@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/spf13/viper"
 	talk "github.com/xiaoxuan6/ding-talk"
+	"github.com/xiaoxuan6/notify/server"
 	wechat_talk "github.com/xiaoxuan6/wechat-talk"
 	"sync"
 )
@@ -11,6 +12,7 @@ import (
 const (
 	DingTalk   = "dinging"
 	WechatTalk = "wechat"
+	ServerTalk = "server"
 )
 
 type fn func() interface{}
@@ -58,6 +60,15 @@ func DetectAdapter(name string) (fn, error) {
 	return nil, errors.New("unknown adapter " + name)
 }
 
+// DeleteAdapter 删除已注册的转接器
+func DeleteAdapter(name string) error {
+	if _, ok := adapters[name]; ok {
+		delete(adapters, name)
+	}
+
+	return nil
+}
+
 func Init() {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
@@ -83,5 +94,9 @@ func Init() {
 
 	RegisterAdapter(WechatTalk, func() interface{} {
 		return wechat_talk.NewRobot(viper.GetString("wechat.key"))
+	})
+
+	RegisterAdapter(ServerTalk, func() interface{} {
+		return server.NewRobot(viper.GetString("server.webhook")).SetChannel(viper.GetString("server.channel"))
 	})
 }
