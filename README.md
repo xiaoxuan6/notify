@@ -1,6 +1,6 @@
 # 消息通知
 
-目前仅支持钉钉机器人和企业微信机器人
+目前仅支持钉钉机器人、企业微信机器人和 Server 酱消息通知
 
 # Installation
 
@@ -8,19 +8,7 @@
 
 # Usage
 
-1、在根目录下创建 `config.yml` 文件，内容：
-
-```yaml
-# 钉钉
-dinging:
-  access_token: "xxx"
-  # 设置了 secret 表示对消息内容进行加密
-  secret: "xxx"
-
-# 企业微信
-wechat:
-  key: "xxx"
-```
+1、将 `config.yml` 复制到项目根目录下，并修改对应的配置信息
 
 2、初始化配置信息
 
@@ -33,10 +21,8 @@ func init() {
 2、使用
 
 ```go
-f, err := notify.DetectAdapter(name) // name:notify.DingTalk、notify.WechatTalk
+robot, err := notify.WechatTalkRobot()
 if err != nil {
-    fmt.Println(err.Error())
+fmt.Println(err.Error())
 }
-
-robot := f().(*talk.Robot) // 这里断言上面适配器取出的是否是对应机器人主体
 ```
