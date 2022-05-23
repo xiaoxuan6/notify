@@ -10,7 +10,7 @@ func DingTalkRobot() (robot *talk.Robot, error error) {
 
 	f, err := DetectAdapter(DingTalk)
 	if err != nil {
-		return nil, nil
+		return nil, err
 	}
 
 	robot = f().(*talk.Robot)
