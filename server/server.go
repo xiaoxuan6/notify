@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/go-resty/resty/v2"
 	talk "github.com/xiaoxuan6/ding-talk"
+	"github.com/xiaoxuan6/notify/feishu"
 	wechat_talk "github.com/xiaoxuan6/wechat-talk"
 	"net/url"
 	"strings"
@@ -39,6 +40,8 @@ func (r *Robot) Send(title, desp string) (item map[string]interface{}, err error
 		item, err = r.sendWechatTalk(desp)
 	case "2":
 		item, err = r.sendDingTalk(desp)
+	case "3":
+		item, err = r.sendFeishuTalk(desp)
 	case "9":
 		item, err = r.sendServe(title, desp, channel)
 	}
@@ -91,6 +94,16 @@ func (r *Robot) sendDingTalk(desp string) (item map[string]interface{}, err erro
 		robot.SetSecret(server)
 	}
 	err = robot.SendText(desp, []string{}, []string{}, false)
+
+	return item, err
+}
+
+func (r *Robot) sendFeishuTalk(desc string) (item map[string]interface{}, err error) {
+	index := strings.LastIndex(r.Webhook, "/")
+	key := r.Webhook[index+1:]
+
+	robot := feishu.NewRobot(key)
+	err = robot.SendText(desc)
 
 	return item, err
 }

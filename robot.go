@@ -2,6 +2,7 @@ package notify
 
 import (
 	talk "github.com/xiaoxuan6/ding-talk"
+	"github.com/xiaoxuan6/notify/feishu"
 	"github.com/xiaoxuan6/notify/server"
 	wechat_talk "github.com/xiaoxuan6/wechat-talk"
 )
@@ -37,6 +38,18 @@ func ServerRobot() (robot *server.Robot, error error) {
 	}
 
 	robot = f().(*server.Robot)
+
+	return robot, nil
+}
+
+func FeishuRobot() (robot *feishu.Robot, error error) {
+	f, err := DetectAdapter(FeishuTalk)
+
+	if err != nil {
+		return nil, err
+	}
+
+	robot = f().(*feishu.Robot)
 
 	return robot, nil
 }

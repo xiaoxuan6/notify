@@ -61,3 +61,17 @@ func TestServerRobotWithChannel2Adapter(t *testing.T) {
 	_, err := robot.Send("123", "32423")
 	assert.Nil(t, err)
 }
+
+func TestFeishuTalkAdapter(t *testing.T) {
+	robot, _ := notify.FeishuRobot()
+	err := robot.SendText("wer")
+
+	assert.Nil(t, err)
+}
+
+func TestServerRobotWithChannel3Adapter(t *testing.T) {
+	robot, _ := notify.ServerRobot()
+	_, err := robot.Send("asdfasf", "cesi")
+
+	assert.Nil(t, err)
+}

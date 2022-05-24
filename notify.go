@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/spf13/viper"
 	talk "github.com/xiaoxuan6/ding-talk"
+	"github.com/xiaoxuan6/notify/feishu"
 	"github.com/xiaoxuan6/notify/server"
 	wechat_talk "github.com/xiaoxuan6/wechat-talk"
 	"sync"
@@ -13,6 +14,7 @@ const (
 	DingTalk   = "dinging"
 	WechatTalk = "wechat"
 	ServerTalk = "server"
+	FeishuTalk = "feishu"
 )
 
 type fn func() interface{}
@@ -98,5 +100,9 @@ func Init() {
 
 	RegisterAdapter(ServerTalk, func() interface{} {
 		return server.NewRobot(viper.GetString("server.webhook")).SetChannel(viper.GetString("server.channel"))
+	})
+
+	RegisterAdapter(FeishuTalk, func() interface{} {
+		return feishu.NewRobot(viper.GetString("feishu.access_token"))
 	})
 }

@@ -6,7 +6,12 @@ dinging:
 
 # 企业微信
 wechat:
-  key: "8d734ce0-c4eb-40ea-aab3-acd71fbaf50d"
+  key: "XXX"
+
+# 飞书
+feishu:
+  # 群自定义机器人(webhook 中最后一串字符)
+  access_token: "XXX"
 
 # Server 酱
 server:
@@ -16,10 +21,10 @@ server:
   # Bark iOS=8
   # 企业微信群机器人=1
   # 钉钉群机器人=2 如果使用内容加密模式：https://oapi.dingtalk.com/robot/send?access_token=xxx&server=xxx
-  # 飞书群机器人=3
+  # 飞书群机器人=3 https://open.feishu.cn/open-apis/bot/v2/hook/xxx
   # 测试号=0
   # 自定义=88
   # PushDeer=18
   # 企业微信应用消息=66
-  channel: "9" #（目前仅支持放糖服务号、企业微信机器人和钉钉群机器人）比如发送服务号消息通道，则使用 "9"
-  webhook: "https://sctapi.ftqq.com/xxx.send"
+  channel: "3" #（目前仅支持放糖服务号、企业微信群自定义机器人、飞书群自定义机器人和钉钉群自定义机器人）比如发送服务号消息通道，则使用 "9"
+  webhook: "https://open.feishu.cn/open-apis/bot/v2/hook/xxx"
