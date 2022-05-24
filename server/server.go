@@ -100,9 +100,20 @@ func (r *Robot) sendDingTalk(desp string) (item map[string]interface{}, err erro
 
 func (r *Robot) sendFeishuTalk(desc string) (item map[string]interface{}, err error) {
 	index := strings.LastIndex(r.Webhook, "/")
-	key := r.Webhook[index+1:]
+	endIndex := strings.LastIndex(r.Webhook, "?")
+
+	var key string
+	if endIndex > 0 {
+		key = r.Webhook[index+1 : endIndex]
+	} else {
+		key = r.Webhook[index+1:]
+	}
 
 	robot := feishu.NewRobot(key)
+	val, _ := url.ParseQuery(r.Webhook[endIndex+1:])
+	if server := val.Get("server"); server != "" {
+		robot.SetSecret(server)
+	}
 	err = robot.SendText(desc)
 
 	return item, err

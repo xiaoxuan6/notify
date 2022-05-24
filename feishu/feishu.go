@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-resty/resty/v2"
+	"github.com/xiaoxuan6/notify/utils"
+	"time"
 )
 
 const webhook = "https://open.feishu.cn/open-apis/bot/v2/hook/"
@@ -83,6 +85,20 @@ func (r *Robot) SendImage(imageKey string) error {
 //}
 
 func (r *Robot) send(msg interface{}) error {
+
+	if len(r.secret) > 0 {
+		timestamp := time.Now().Unix()
+		sign := utils.GenSignedByHmacSHA256(r.secret, timestamp)
+
+		var data map[string]interface{}
+		b, _ := json.Marshal(msg)
+		_ = json.Unmarshal(b, &data)
+
+		data["timestamp"] = timestamp
+		data["sign"] = sign
+
+		msg = data
+	}
 
 	marshal, err := json.Marshal(msg)
 	if err != nil {

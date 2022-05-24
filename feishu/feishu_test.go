@@ -7,6 +7,15 @@ import (
 
 var robot = NewRobot("xxx")
 
+func TestSendTextAndHash26(t *testing.T) {
+	err := robot.SetSecret("xxx").SendText("test")
+	assert.Nil(t, err)
+
+	// @所有人
+	err = robot.SendText("<at user_id=\"all\">所有人</at> test")
+	assert.Nil(t, err)
+}
+
 func TestSendText(t *testing.T) {
 	err := robot.SendText("test")
 	assert.Nil(t, err)

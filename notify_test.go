@@ -69,7 +69,21 @@ func TestFeishuTalkAdapter(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+func TestFeishuTalkAdapterAndHash256(t *testing.T) {
+	robot, _ := notify.FeishuRobot()
+	err := robot.SendText("wer")
+
+	assert.Nil(t, err)
+}
+
 func TestServerRobotWithChannel3Adapter(t *testing.T) {
+	robot, _ := notify.ServerRobot()
+	_, err := robot.Send("asdfasf", "cesi")
+
+	assert.Nil(t, err)
+}
+
+func TestServerRobotWithChannel3AdapterAndHash256(t *testing.T) {
 	robot, _ := notify.ServerRobot()
 	_, err := robot.Send("asdfasf", "cesi")
 

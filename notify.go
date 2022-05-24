@@ -103,6 +103,12 @@ func Init() {
 	})
 
 	RegisterAdapter(FeishuTalk, func() interface{} {
-		return feishu.NewRobot(viper.GetString("feishu.access_token"))
+		robot := feishu.NewRobot(viper.GetString("feishu.access_token"))
+
+		if secret := viper.GetString("feishu.secret"); secret != "" {
+			robot.SetSecret(secret)
+		}
+
+		return robot
 	})
 }
