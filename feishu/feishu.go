@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-resty/resty/v2"
-	"github.com/xiaoxuan6/notify/utils"
+	"github.com/xiaoxuan6/notify/v2/utils"
 	"time"
 )
 
@@ -87,17 +87,11 @@ func (r *Robot) SendImage(imageKey string) error {
 func (r *Robot) send(msg interface{}) error {
 
 	if len(r.secret) > 0 {
-		timestamp := time.Now().Unix()
-		sign := utils.GenSignedByHmacSHA256(r.secret, timestamp)
+		msg = genSigned(r.secret, msg)
+	}
 
-		var data map[string]interface{}
-		b, _ := json.Marshal(msg)
-		_ = json.Unmarshal(b, &data)
-
-		data["timestamp"] = timestamp
-		data["sign"] = sign
-
-		msg = data
+	if len(r.accessToken) < 1 {
+		return errors.New("access_token 不能为空")
 	}
 
 	marshal, err := json.Marshal(msg)
@@ -126,4 +120,17 @@ func (r *Robot) send(msg interface{}) error {
 	}
 
 	return nil
+}
+
+func genSigned(secret string, msg interface{}) (data map[string]interface{}) {
+	timestamp := time.Now().Unix()
+	sign := utils.GenSignedByHmacSHA256(secret, timestamp)
+
+	b, _ := json.Marshal(msg)
+	_ = json.Unmarshal(b, &data)
+
+	data["timestamp"] = timestamp
+	data["sign"] = sign
+
+	return
 }

@@ -7,22 +7,12 @@
     go get github.com/xiaoxuan6/notify
 
 # Usage
-
-1、将 `config.yml` 复制到项目根目录下，并修改对应的配置信息
-
-2、初始化配置信息
-
-```bigquery
-func init() {
-    notify.Init()
-}
-```
-
-2、使用
-
 ```go
-robot, err := notify.WechatTalkRobot()
-if err != nil {
-fmt.Println(err.Error())
-}
+config := `{"server":{"webhook":"https://sctapi.ftqq.com/xxx.send","channel":` + utils.FangtangChannel + `}}`
+
+con := &utils.Config{}
+_ = json.Unmarshal([]byte(config), con)
+
+robot := notify.NewNotify(con).Server
+_, err := robot.Send("123", "123")
 ```

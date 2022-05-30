@@ -1,91 +1,54 @@
 package notify_test
 
 import (
+	"encoding/json"
 	"github.com/stretchr/testify/assert"
-	"github.com/xiaoxuan6/notify"
-	"github.com/xiaoxuan6/notify/server"
+	"github.com/xiaoxuan6/notify/v2"
+	"github.com/xiaoxuan6/notify/v2/utils"
 	"testing"
 )
 
-func init() {
-	notify.Init()
-}
+func TestDingingTalk(t *testing.T) {
 
-func TestDingTalkAdapter(t *testing.T) {
-	robot, err := notify.DingTalkRobot()
-	assert.Nil(t, err)
+	var accessToken = "xxx"
+	var secret = "xxx"
+	config := `{"dinging":{"access_token":"` + accessToken + `","secret":"` + secret + `"}}`
 
-	err = robot.SendText("123", []string{}, []string{}, false)
-	assert.Nil(t, err)
-}
+	con := &utils.Config{}
+	_ = json.Unmarshal([]byte(config), con)
 
-func TestWechatTalkAdapter(t *testing.T) {
-	robot, err := notify.WechatTalkRobot()
-	assert.Nil(t, err)
+	robot := notify.NewNotify(con).DingDing
 
-	err = robot.SendText("123", []string{}, []string{})
+	err := robot.SendText("test", []string{}, []string{}, false)
+
 	assert.Nil(t, err)
 }
 
-func TestServerRobotAdapter(t *testing.T) {
-	robot, err := notify.ServerRobot()
-	assert.Nil(t, err)
+func TestFeishuTalk(t *testing.T) {
 
-	resp, err := robot.Send("123", "32423")
-	assert.Nil(t, err)
+	var accessToken = "xxx"
+	var secret = "xxx"
+	config := `{"feishu":{"access_token":"` + accessToken + `","secret":"` + secret + `"}}`
 
-	assert.Equal(t, float64(0), resp["errno"])
-}
+	con := &utils.Config{}
+	_ = json.Unmarshal([]byte(config), con)
 
-func TestServerRobotWithChannel1Adapter(t *testing.T) {
-	_ = notify.DeleteAdapter(notify.ServerTalk)
+	robot := notify.NewNotify(con).Feishu
 
-	notify.RegisterAdapter(notify.ServerTalk, func() interface{} {
-		return server.NewRobot("https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxx").SetChannel("1")
-	})
-
-	robot, _ := notify.ServerRobot()
-	_, err := robot.Send("123", "32423")
-	assert.Nil(t, err)
-}
-
-func TestServerRobotWithChannel2Adapter(t *testing.T) {
-	_ = notify.DeleteAdapter(notify.ServerTalk)
-
-	notify.RegisterAdapter(notify.ServerTalk, func() interface{} {
-		webhook := "https://oapi.dingtalk.com/robot/send?access_token=xxx&server=xxx"
-		return server.NewRobot(webhook).SetChannel("2")
-	})
-
-	robot, _ := notify.ServerRobot()
-	_, err := robot.Send("123", "32423")
-	assert.Nil(t, err)
-}
-
-func TestFeishuTalkAdapter(t *testing.T) {
-	robot, _ := notify.FeishuRobot()
 	err := robot.SendText("wer")
 
 	assert.Nil(t, err)
 }
 
-func TestFeishuTalkAdapterAndHash256(t *testing.T) {
-	robot, _ := notify.FeishuRobot()
-	err := robot.SendText("wer")
+func TestServer(t *testing.T) {
+	config := `{"server":{"webhook":"https://sctapi.ftqq.com/xxx.send","channel":` + utils.FangtangChannel + `}}`
+
+	con := &utils.Config{}
+	_ = json.Unmarshal([]byte(config), con)
+
+	robot := notify.NewNotify(con).Server
+	_, err := robot.Send("123", "123")
 
 	assert.Nil(t, err)
-}
 
-func TestServerRobotWithChannel3Adapter(t *testing.T) {
-	robot, _ := notify.ServerRobot()
-	_, err := robot.Send("asdfasf", "cesi")
-
-	assert.Nil(t, err)
-}
-
-func TestServerRobotWithChannel3AdapterAndHash256(t *testing.T) {
-	robot, _ := notify.ServerRobot()
-	_, err := robot.Send("asdfasf", "cesi")
-
-	assert.Nil(t, err)
 }

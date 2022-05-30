@@ -6,14 +6,14 @@ import (
 	"fmt"
 	"github.com/go-resty/resty/v2"
 	talk "github.com/xiaoxuan6/ding-talk"
-	"github.com/xiaoxuan6/notify/feishu"
+	"github.com/xiaoxuan6/notify/v2/feishu"
 	wechat_talk "github.com/xiaoxuan6/wechat-talk"
-	"net/url"
 	"strings"
 )
 
 type Robot struct {
 	Webhook string `json:"webhook"`
+	Secret  string `json:"secret"`
 	Channel string `json:"channel"`
 }
 
@@ -28,14 +28,18 @@ func (r *Robot) SetChannel(channel string) *Robot {
 	return r
 }
 
+func (r *Robot) SetSecret(secret string) *Robot {
+	r.Secret = secret
+	return r
+}
+
 func (r *Robot) Send(title, desp string) (item map[string]interface{}, err error) {
 
-	channel := r.Channel
-	if channel == "" {
-		channel = "9" // 使用默认通道
+	if len(r.Webhook) < 1 {
+		return item, errors.New("webhook 不能为空")
 	}
 
-	switch channel {
+	switch r.Channel {
 	case "1":
 		item, err = r.sendWechatTalk(desp)
 	case "2":
@@ -43,7 +47,9 @@ func (r *Robot) Send(title, desp string) (item map[string]interface{}, err error
 	case "3":
 		item, err = r.sendFeishuTalk(desp)
 	case "9":
-		item, err = r.sendServe(title, desp, channel)
+		item, err = r.sendServe(title, desp, r.Channel)
+	default:
+		item, err = r.sendServe(title, desp, r.Channel)
 	}
 
 	return
@@ -85,14 +91,15 @@ func (r *Robot) sendWechatTalk(desp string) (item map[string]interface{}, err er
 }
 
 func (r *Robot) sendDingTalk(desp string) (item map[string]interface{}, err error) {
-	index := strings.LastIndex(r.Webhook, "?")
-	urls := r.Webhook[index+1:]
-	val, _ := url.ParseQuery(urls)
+	index := strings.LastIndex(r.Webhook, "=")
+	accessToken := r.Webhook[index+1:]
 
-	robot := talk.NewRobot(val.Get("access_token"))
-	if server := val.Get("server"); server != "" {
-		robot.SetSecret(server)
+	robot := talk.NewRobot(accessToken)
+
+	if len(r.Secret) > 0 {
+		robot.SetSecret(r.Secret)
 	}
+
 	err = robot.SendText(desp, []string{}, []string{}, false)
 
 	return item, err
@@ -100,20 +107,14 @@ func (r *Robot) sendDingTalk(desp string) (item map[string]interface{}, err erro
 
 func (r *Robot) sendFeishuTalk(desc string) (item map[string]interface{}, err error) {
 	index := strings.LastIndex(r.Webhook, "/")
-	endIndex := strings.LastIndex(r.Webhook, "?")
-
-	var key string
-	if endIndex > 0 {
-		key = r.Webhook[index+1 : endIndex]
-	} else {
-		key = r.Webhook[index+1:]
-	}
+	key := r.Webhook[index+1:]
 
 	robot := feishu.NewRobot(key)
-	val, _ := url.ParseQuery(r.Webhook[endIndex+1:])
-	if server := val.Get("server"); server != "" {
-		robot.SetSecret(server)
+
+	if len(r.Secret) > 0 {
+		robot.SetSecret(r.Secret)
 	}
+
 	err = robot.SendText(desc)
 
 	return item, err
