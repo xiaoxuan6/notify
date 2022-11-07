@@ -1,10 +1,11 @@
 package utils
 
 type Config struct {
-	Dinging dingingConfig `json:"dinging"`
-	Wechat  wechatConfig  `json:"wechat"`
-	Feishu  feishuConfig  `json:"feishu"`
-	Server  serverConfig  `json:"server"`
+	Dinging  dingingConfig  `json:"dinging"`
+	Wechat   wechatConfig   `json:"wechat"`
+	Feishu   feishuConfig   `json:"feishu"`
+	Server   serverConfig   `json:"server"`
+	PushPlus pushPlusConfig `json:"push_plus"`
 }
 
 type dingingConfig struct {
@@ -32,4 +33,8 @@ type serverConfig struct {
 	Webhook string `json:"webhook"`
 	Secret  string `json:"secret"`
 	Channel string `json:"channel"`
+}
+
+type pushPlusConfig struct {
+	Token string `json:"token"`
 }

@@ -4,6 +4,7 @@ import (
 	dinging_talk "github.com/xiaoxuan6/ding-talk"
 	"github.com/xiaoxuan6/notify/v2/dinging"
 	"github.com/xiaoxuan6/notify/v2/feishu"
+	"github.com/xiaoxuan6/notify/v2/push_plus"
 	"github.com/xiaoxuan6/notify/v2/server"
 	"github.com/xiaoxuan6/notify/v2/utils"
 	"github.com/xiaoxuan6/notify/v2/wechat"
@@ -15,6 +16,7 @@ type Notify struct {
 	Wechat   *wechat_talk.Robot
 	Feishu   *feishu.Robot
 	Server   *server.Robot
+	PushPlus *push_plus.Root
 }
 
 func NewNotify(config *utils.Config) *Notify {
@@ -22,12 +24,10 @@ func NewNotify(config *utils.Config) *Notify {
 	notify := &Notify{}
 
 	notify.DingDing = dinging.RegisterProvider(config)
-
 	notify.Wechat = wechat.RegisterProvider(config)
-
 	notify.Feishu = feishu.RegisterProvider(config)
-
 	notify.Server = server.RegisterProvider(config)
+	notify.PushPlus = push_plus.RegisterProvider(config)
 
 	return notify
 }
