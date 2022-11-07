@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"github.com/xiaoxuan6/notify/v2"
+	"github.com/xiaoxuan6/notify/v2/push_plus"
 	"github.com/xiaoxuan6/notify/v2/utils"
 	"testing"
 )
@@ -50,5 +51,18 @@ func TestServer(t *testing.T) {
 	_, err := robot.Send("123", "123")
 
 	assert.Nil(t, err)
+}
 
+func TestPushPlus(t *testing.T) {
+	var Token = ""
+	config := &utils.Config{
+		PushPlus: utils.PushPlusConfig{
+			Token: Token,
+		},
+	}
+
+	root := notify.NewNotify(config).PushPlus
+	err, result := root.Send(push_plus.Message{Title: "test", Content: "test"})
+	assert.Nil(t, err)
+	assert.Contains(t, result.Msg, "请求成功")
 }

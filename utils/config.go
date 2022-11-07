@@ -1,23 +1,23 @@
 package utils
 
 type Config struct {
-	Dinging  dingingConfig  `json:"dinging"`
-	Wechat   wechatConfig   `json:"wechat"`
-	Feishu   feishuConfig   `json:"feishu"`
-	Server   serverConfig   `json:"server"`
-	PushPlus pushPlusConfig `json:"push_plus"`
+	Dinging  DingingConfig  `json:"dinging"`
+	Wechat   WechatConfig   `json:"wechat"`
+	Feishu   FeishuConfig   `json:"feishu"`
+	Server   ServerConfig   `json:"server"`
+	PushPlus PushPlusConfig `json:"push_plus"`
 }
 
-type dingingConfig struct {
+type DingingConfig struct {
 	AccessToken string `json:"access_token"`
 	Secret      string `json:"secret"`
 }
 
-type wechatConfig struct {
+type WechatConfig struct {
 	Key string `json:"key"`
 }
 
-type feishuConfig struct {
+type FeishuConfig struct {
 	AccessToken string `json:"access_token"`
 	Secret      string `json:"secret"`
 }
@@ -29,12 +29,12 @@ const (
 	FangtangChannel = "9" // 方糖服务号:默认使用
 )
 
-type serverConfig struct {
+type ServerConfig struct {
 	Webhook string `json:"webhook"`
 	Secret  string `json:"secret"`
 	Channel string `json:"channel"`
 }
 
-type pushPlusConfig struct {
+type PushPlusConfig struct {
 	Token string `json:"token"`
 }

@@ -28,7 +28,7 @@ func (r *Root) Send(message Message) (error error, response *Response) {
 	}
 
 	result, err := resty.New().R().SetBody(message).SetHeader("Content-Type", "application/json").Post(URI)
-	fmt.Println(result)
+
 	if err != nil {
 		return errors.New("json 格式化数据失败"), res
 	}
