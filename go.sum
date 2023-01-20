@@ -17,8 +17,6 @@ github.com/stretchr/testify v1.7.1 h1:5TQK59W5E3v0r2duFAb7P95B6hEeOyEnHRa8MjYSMT
 github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/xiaoxuan6/ding-talk v0.0.0-20220518095008-670d9b98c60d h1:LfGgYwfCcW6rmY7xsHUMvTtk7lFWaV5oPXeiTuU6vpE=
 github.com/xiaoxuan6/ding-talk v0.0.0-20220518095008-670d9b98c60d/go.mod h1:1f2WC5GjqgCp/y56EjbmxxtZTKGX5KrJn/jv18UEH3A=
-github.com/xiaoxuan6/wechat-talk v0.0.0-20220521121116-83cd4d33d9da h1:R1brztnk0473YDKZj1pxBwbKc7ccnHaEooq4z+qT9dI=
-github.com/xiaoxuan6/wechat-talk v0.0.0-20220521121116-83cd4d33d9da/go.mod h1:8GJwuZg8TwxxsU8MKkh2YstEVdbtEbMAHOtuOPRAQos=
 golang.org/x/net v0.0.0-20211029224645-99673261e6eb/go.mod h1:9nx3DQGgdP8bBQD5qxJ1jj9UTztislL4KSBs9R2vV5Y=
 golang.org/x/net v0.0.0-20220412020605-290c469a71a5 h1:bRb386wvrE+oBNdF1d/Xh9mQrfQ4ecYhW5qJ5GvTGT4=
 golang.org/x/net v0.0.0-20220412020605-290c469a71a5/go.mod h1:CfG3xpIq0wQ8r1q4Su4UZFWDARRcnwPjda9FqA0JpMk=

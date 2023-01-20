@@ -7,7 +7,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	talk "github.com/xiaoxuan6/ding-talk"
 	"github.com/xiaoxuan6/notify/v2/feishu"
-	wechat_talk "github.com/xiaoxuan6/wechat-talk"
+	"github.com/xiaoxuan6/notify/v2/wechat"
 	"strings"
 )
 
@@ -84,7 +84,7 @@ func (r *Robot) sendWechatTalk(desp string) (item map[string]interface{}, err er
 	index := strings.LastIndex(r.Webhook, "=")
 	key := r.Webhook[index+1:]
 
-	robot := wechat_talk.NewRobot(key)
+	robot := wechat.NewRobot(key)
 	err = robot.SendText(desp, []string{}, []string{})
 
 	return item, err
