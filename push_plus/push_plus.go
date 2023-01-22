@@ -9,17 +9,17 @@ import (
 
 const URI = "https://www.pushplus.plus/send"
 
-type Root struct {
+type Robot struct {
 	token string
 }
 
-func NewRoot(toke string) *Root {
-	return &Root{
+func NewRobot(toke string) *Robot {
+	return &Robot{
 		token: toke,
 	}
 }
 
-func (r *Root) Send(message Message) (error error, response *Response) {
+func (r *Robot) Send(message Message) (error error, response *Response) {
 	res := &Response{}
 	message.Token = r.token
 

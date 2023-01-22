@@ -37,9 +37,7 @@ func (r *Robot) Send(head, body string) (err error, res *Response) {
 		return errors.New(err.Error()), res
 	}
 
-	var params string
-	params = fmt.Sprintf("head=%s&body=%s", url.QueryEscape(head), url.QueryEscape(body))
-	uri := fmt.Sprintf("%s/%s?%s", URI, r.Token, params)
+	uri := fmt.Sprintf("%s/%s?head=%s&body=%s", URI, r.Token, url.QueryEscape(head), url.QueryEscape(body))
 	response, err := resty.New().R().Get(uri)
 	if err != nil {
 		return errors.New(fmt.Sprintf("请求失败：%s", err.Error())), res

@@ -61,8 +61,8 @@ func TestPushPlus(t *testing.T) {
 		},
 	}
 
-	root := notify.NewNotify(config).PushPlus
-	err, result := root.Send(push_plus.Message{Title: "test", Content: "test"})
+	robot := notify.NewNotify(config).PushPlus
+	err, result := robot.Send(push_plus.Message{Title: "test", Content: "test"})
 	assert.Nil(t, err)
 	assert.Contains(t, result.Msg, "请求成功")
 }
@@ -74,8 +74,8 @@ func TestPhprm(t *testing.T) {
 			Token: token,
 		},
 	}
-	root := notify.NewNotify(config).Phprm
-	err, response := root.Send("hello phprm", "这是测试内容")
+	robot := notify.NewNotify(config).Phprm
+	err, response := robot.Send("hello phprm", "这是测试内容")
 	assert.Nil(t, err)
 	assert.Equal(t, response.Code, 0)
 	assert.Contains(t, response.Message, "请求成功")

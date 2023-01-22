@@ -22,7 +22,7 @@ func NewPhprm(config *utils.Config) *phprm.Robot {
 	return NewNotify(config).Phprm
 }
 
-func NewPushPlus(config *utils.Config) *push_plus.Root {
+func NewPushPlus(config *utils.Config) *push_plus.Robot {
 	return NewNotify(config).PushPlus
 }
 

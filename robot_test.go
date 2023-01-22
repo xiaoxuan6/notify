@@ -13,8 +13,8 @@ func TestRobotPhprm(t *testing.T) {
 			Token: token,
 		},
 	}
-	root := NewPhprm(config)
-	err, r := root.Send("hello phprm", "这是测试内容")
+	robot := NewPhprm(config)
+	err, r := robot.Send("hello phprm", "这是测试内容")
 	assert.Nil(t, err, err.Error())
 	assert.Contains(t, r.Message, "请求成功")
 }

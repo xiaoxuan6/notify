@@ -16,7 +16,7 @@ type Notify struct {
 	Wechat   *wechat.Robot
 	Feishu   *feishu.Robot
 	Server   *server.Robot
-	PushPlus *push_plus.Root
+	PushPlus *push_plus.Robot
 	Phprm    *phprm.Robot
 }
 

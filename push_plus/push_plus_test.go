@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-var root = NewRoot("a2c05b37a66b4f86846ffbdc28fb2938")
+var robot = NewRobot("a2c05b37a66b4f86846ffbdc28fb2938")
 
 func TestSendHtml(t *testing.T) {
 	message := Message{
@@ -13,7 +13,7 @@ func TestSendHtml(t *testing.T) {
 		Content: "hello world",
 	}
 
-	err, result := root.Send(message)
+	err, result := robot.Send(message)
 	assert.Nil(t, err)
 	assert.Contains(t, result.Msg, "请求成功")
 }
@@ -25,7 +25,7 @@ func TestSendTxt(t *testing.T) {
 		Template: TEMPLATE_TXT,
 	}
 
-	err1, result := root.Send(message)
+	err1, result := robot.Send(message)
 	assert.Nil(t, err1)
 	assert.Contains(t, result.Msg, "请求成功")
 }
@@ -37,7 +37,7 @@ func TestSendJson(t *testing.T) {
 		Template: TEMPLATE_JSON,
 	}
 
-	err1, result := root.Send(message)
+	err1, result := robot.Send(message)
 	assert.Nil(t, err1)
 	assert.Contains(t, result.Msg, "请求成功")
 }
@@ -49,7 +49,7 @@ func TestSendMarkdown(t *testing.T) {
 		Template: TEMPLATE_MARKDOWN,
 	}
 
-	err, result := root.Send(message)
+	err, result := robot.Send(message)
 	assert.Nil(t, err)
 	assert.Contains(t, result.Msg, "请求成功")
 }
@@ -64,7 +64,7 @@ func TestSendWebhook(t *testing.T) {
 		Webhook: "wechat", // 企业微信机器人
 	}
 
-	err, result := root.Send(message)
+	err, result := robot.Send(message)
 	assert.Nil(t, err)
 	assert.Contains(t, result.Msg, "请求成功")
 }

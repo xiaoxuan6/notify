@@ -26,8 +26,8 @@ config := &utils.Config{
     },
 }
 
-root := notify.NewNotify(config).PushPlus
-err, result := root.Send(push_plus.Message{Title: "test", Content: "test"})
+robot := notify.NewNotify(config).PushPlus
+err, result := robot.Send(push_plus.Message{Title: "test", Content: "test"})
 ```
 
 ## Example
@@ -39,6 +39,6 @@ config := &utils.Config{
         Token: token,
     },
 }
-root := notify.NewPhprm(config)
-root.Send("hello phprm", "这是测试内容")
+robot := notify.NewPhprm(config)
+robot.Send("hello phprm", "这是测试内容")
 ```
