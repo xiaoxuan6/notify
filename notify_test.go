@@ -66,3 +66,17 @@ func TestPushPlus(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Contains(t, result.Msg, "请求成功")
 }
+
+func TestPhprm(t *testing.T) {
+	var token = "1d8a3e21fac726dbe6da8bc0e463d50fs"
+	config := &utils.Config{
+		Phprm: utils.Phprm{
+			Token: token,
+		},
+	}
+	root := notify.NewNotify(config).Phprm
+	err, response := root.Send("hello phprm", "这是测试内容")
+	assert.Nil(t, err)
+	assert.Equal(t, response.Code, 0)
+	assert.Contains(t, response.Message, "请求成功")
+}

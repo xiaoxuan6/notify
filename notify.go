@@ -4,6 +4,7 @@ import (
 	dinging_talk "github.com/xiaoxuan6/ding-talk"
 	"github.com/xiaoxuan6/notify/v2/dinging"
 	"github.com/xiaoxuan6/notify/v2/feishu"
+	"github.com/xiaoxuan6/notify/v2/phprm"
 	"github.com/xiaoxuan6/notify/v2/push_plus"
 	"github.com/xiaoxuan6/notify/v2/server"
 	"github.com/xiaoxuan6/notify/v2/utils"
@@ -16,6 +17,7 @@ type Notify struct {
 	Feishu   *feishu.Robot
 	Server   *server.Robot
 	PushPlus *push_plus.Root
+	Phprm    *phprm.Robot
 }
 
 func NewNotify(config *utils.Config) *Notify {
@@ -27,6 +29,7 @@ func NewNotify(config *utils.Config) *Notify {
 	notify.Feishu = feishu.RegisterProvider(config)
 	notify.Server = server.RegisterProvider(config)
 	notify.PushPlus = push_plus.RegisterProvider(config)
+	notify.Phprm = phprm.RegisterProvider(config)
 
 	return notify
 }

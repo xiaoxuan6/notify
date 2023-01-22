@@ -6,6 +6,7 @@ type Config struct {
 	Feishu   FeishuConfig   `json:"feishu"`
 	Server   ServerConfig   `json:"server"`
 	PushPlus PushPlusConfig `json:"push_plus"`
+	Phprm    Phprm          `json:"phprm"`
 }
 
 type DingingConfig struct {
@@ -36,5 +37,9 @@ type ServerConfig struct {
 }
 
 type PushPlusConfig struct {
+	Token string `json:"token"`
+}
+
+type Phprm struct {
 	Token string `json:"token"`
 }

@@ -30,9 +30,13 @@ func (r *Root) Send(message Message) (error error, response *Response) {
 	result, err := resty.New().R().SetBody(message).SetHeader("Content-Type", "application/json").Post(URI)
 
 	if err != nil {
-		return errors.New("json 格式化数据失败"), res
+		return errors.New(fmt.Sprintf("请求失败：%s", err.Error())), res
 	}
-	json.Unmarshal(result.Body(), res)
+	 err = json.Unmarshal(result.Body(), res)
+	 if err != nil {
+		 return errors.New("json 格式化数据失败"), res
+	 }
+
 	if res.Code == 200 {
 		return nil, res
 	}
