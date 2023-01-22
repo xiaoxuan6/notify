@@ -3,6 +3,7 @@ module github.com/xiaoxuan6/notify/v2
 go 1.18
 
 require (
+	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.7.1

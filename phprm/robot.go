@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/go-resty/resty/v2"
 	"github.com/tidwall/gjson"
 	"net/url"
@@ -22,32 +23,29 @@ func NewRobot(token string) *Robot {
 }
 
 func (r *Robot) Send(head, body string) (err error, res *Response) {
-	if len(r.Token) == 0 {
-		return errors.New("invalid token"), res
+
+	requestParams := map[string]interface{}{
+		"token": r.Token,
+		"head":  head,
+		"body":  body,
+	}
+	if err = validation.Validate(requestParams, validation.Map(
+		validation.Key("token", validation.Required.Error("invalid token")),
+		validation.Key("head", validation.Required.Error("request head param required"), validation.NilOrNotEmpty.Error("request head param not empty")),
+		validation.Key("body", validation.Required.Error("request body param required"), validation.NilOrNotEmpty.Error("request body param not empty")),
+	)); err != nil {
+		return errors.New(err.Error()), res
 	}
 
 	var params string
-	if len(head) > 0 {
-		head = url.QueryEscape(head)
-		params = fmt.Sprintf("head=%s", head)
-	} else {
-		return errors.New("request head param not empty"), res
-	}
-
-	if len(body) > 0 {
-		body = url.QueryEscape(body)
-		params = fmt.Sprintf("%s&body=%s", params, body)
-	} else {
-		return errors.New("request body param not empty"), res
-	}
-
+	params = fmt.Sprintf("head=%s&body=%s", url.QueryEscape(head), url.QueryEscape(body))
 	uri := fmt.Sprintf("%s/%s?%s", URI, r.Token, params)
 	response, err := resty.New().R().Get(uri)
 	if err != nil {
 		return errors.New(fmt.Sprintf("请求失败：%s", err.Error())), res
 	}
 
-	if code := gjson.Get(response.String(), "Code").Int(); code != 0 {
+	if code := gjson.Get(response.String(), "code").Int(); code == int64(1) {
 		return errors.New(fmt.Sprintf("请求错误：%s", gjson.Get(response.String(), "message").String())), res
 	}
 
@@ -55,8 +53,6 @@ func (r *Robot) Send(head, body string) (err error, res *Response) {
 	if err != nil {
 		return errors.New("json 格式化数据失败"), res
 	}
-
-	fmt.Println(res)
 
 	return nil, res
 }
