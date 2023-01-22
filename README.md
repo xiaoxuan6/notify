@@ -29,3 +29,16 @@ config := &utils.Config{
 root := notify.NewNotify(config).PushPlus
 err, result := root.Send(push_plus.Message{Title: "test", Content: "test"})
 ```
+
+## Example
+
+```php
+var token = "1d8a3e21fac726dbe6da8bc0e463d50fs"
+config := &utils.Config{
+    Phprm: utils.Phprm{
+        Token: token,
+    },
+}
+root := notify.NewPhprm(config)
+root.Send("hello phprm", "这是测试内容")
+```
