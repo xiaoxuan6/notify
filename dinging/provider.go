@@ -2,7 +2,7 @@ package dinging
 
 import (
 	dinging_talk "github.com/xiaoxuan6/ding-talk"
-	"github.com/xiaoxuan6/notify/v2/utils"
+	"github.com/xiaoxuan6/notify/v3/utils"
 )
 
 func RegisterProvider(config *utils.Config) *dinging_talk.Robot {

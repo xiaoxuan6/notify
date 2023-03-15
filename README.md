@@ -4,30 +4,11 @@
 
 # Installation
 
-    go get github.com/xiaoxuan6/notify/v2
+    go get github.com/xiaoxuan6/notify/v3
 
 # Usage
 ```go
-config := `{"server":{"webhook":"https://sctapi.ftqq.com/xxx.send","channel":` + utils.FangtangChannel + `}}`
 
-con := &utils.Config{}
-_ = json.Unmarshal([]byte(config), con)
-
-robot := notify.NewNotify(con).Server
-_, err := robot.Send("123", "123")
-```
-
-OR
-```go
-var Token = ""
-config := &utils.Config{
-    PushPlus: utils.PushPlusConfig{
-        Token: Token,
-    },
-}
-
-robot := notify.NewNotify(config).PushPlus
-err, result := robot.Send(push_plus.Message{Title: "test", Content: "test"})
 ```
 
 ## Example

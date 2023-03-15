@@ -3,9 +3,9 @@ package notify_test
 import (
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
-	"github.com/xiaoxuan6/notify/v2"
-	"github.com/xiaoxuan6/notify/v2/push_plus"
-	"github.com/xiaoxuan6/notify/v2/utils"
+	"github.com/xiaoxuan6/notify/v3"
+	"github.com/xiaoxuan6/notify/v3/push_plus"
+	"github.com/xiaoxuan6/notify/v3/utils"
 	"testing"
 )
 

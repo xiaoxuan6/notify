@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-resty/resty/v2"
-	"github.com/xiaoxuan6/notify/v2/utils"
+	"github.com/xiaoxuan6/notify/v3/utils"
 	"time"
 )
 

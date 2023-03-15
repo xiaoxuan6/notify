@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"github.com/go-resty/resty/v2"
 	talk "github.com/xiaoxuan6/ding-talk"
-	"github.com/xiaoxuan6/notify/v2/feishu"
-	"github.com/xiaoxuan6/notify/v2/wechat"
+	"github.com/xiaoxuan6/notify/v3/feishu"
+	"github.com/xiaoxuan6/notify/v3/wechat"
 	"strings"
 )
 

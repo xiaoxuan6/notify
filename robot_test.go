@@ -2,19 +2,17 @@ package notify
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/xiaoxuan6/notify/v2/utils"
+	"github.com/xiaoxuan6/notify/v3/utils"
 	"testing"
 )
 
+// go test -v -run TestRobotPhprm
 func TestRobotPhprm(t *testing.T) {
-	var token = "1d8a3e21fac726dbe6da8bc0e463d50fs"
-	config := &utils.Config{
-		Phprm: utils.Phprm{
-			Token: token,
-		},
-	}
+
+	config := utils.LoadConfig("./env.yml")
+
 	robot := NewPhprm(config)
 	err, r := robot.Send("hello phprm", "这是测试内容")
-	assert.Nil(t, err, err.Error())
+	assert.Nil(t, err)
 	assert.Contains(t, r.Message, "请求成功")
 }

@@ -2,13 +2,13 @@ package notify
 
 import (
 	dinging_talk "github.com/xiaoxuan6/ding-talk"
-	"github.com/xiaoxuan6/notify/v2/dinging"
-	"github.com/xiaoxuan6/notify/v2/feishu"
-	"github.com/xiaoxuan6/notify/v2/phprm"
-	"github.com/xiaoxuan6/notify/v2/push_plus"
-	"github.com/xiaoxuan6/notify/v2/server"
-	"github.com/xiaoxuan6/notify/v2/utils"
-	"github.com/xiaoxuan6/notify/v2/wechat"
+	"github.com/xiaoxuan6/notify/v3/dinging"
+	"github.com/xiaoxuan6/notify/v3/feishu"
+	"github.com/xiaoxuan6/notify/v3/phprm"
+	"github.com/xiaoxuan6/notify/v3/push_plus"
+	"github.com/xiaoxuan6/notify/v3/server"
+	"github.com/xiaoxuan6/notify/v3/utils"
+	"github.com/xiaoxuan6/notify/v3/wechat"
 )
 
 type Notify struct {
