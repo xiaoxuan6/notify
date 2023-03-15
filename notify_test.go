@@ -1,10 +1,9 @@
-package notify_test
+package notify
 
 import (
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
-	"github.com/xiaoxuan6/notify/v3"
-	"github.com/xiaoxuan6/notify/v3/push_plus"
+    "github.com/xiaoxuan6/notify/v3/push_plus"
 	"github.com/xiaoxuan6/notify/v3/utils"
 	"testing"
 )
@@ -18,7 +17,7 @@ func TestDingingTalk(t *testing.T) {
 	con := &utils.Config{}
 	_ = json.Unmarshal([]byte(config), con)
 
-	robot := notify.NewNotify(con).DingDing
+	robot := newNotify(con).DingDing
 
 	err := robot.SendText("test", []string{}, []string{}, false)
 
@@ -34,7 +33,7 @@ func TestFeishuTalk(t *testing.T) {
 	con := &utils.Config{}
 	_ = json.Unmarshal([]byte(config), con)
 
-	robot := notify.NewNotify(con).Feishu
+	robot := newNotify(con).Feishu
 
 	err := robot.SendText("wer")
 
@@ -47,7 +46,7 @@ func TestServer(t *testing.T) {
 	con := &utils.Config{}
 	_ = json.Unmarshal([]byte(config), con)
 
-	robot := notify.NewNotify(con).Server
+	robot := newNotify(con).Server
 	_, err := robot.Send("123", "123")
 
 	assert.Nil(t, err)
@@ -61,7 +60,7 @@ func TestPushPlus(t *testing.T) {
 		},
 	}
 
-	robot := notify.NewNotify(config).PushPlus
+	robot := newNotify(config).PushPlus
 	err, result := robot.Send(push_plus.Message{Title: "test", Content: "test"})
 	assert.Nil(t, err)
 	assert.Contains(t, result.Msg, "请求成功")
@@ -74,7 +73,7 @@ func TestPhprm(t *testing.T) {
 			Token: token,
 		},
 	}
-	robot := notify.NewNotify(config).Phprm
+	robot := newNotify(config).Phprm
 	err, response := robot.Send("hello phprm", "这是测试内容")
 	assert.Nil(t, err)
 	assert.Equal(t, response.Code, 0)

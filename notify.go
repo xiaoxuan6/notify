@@ -22,7 +22,7 @@ type Notify struct {
     ZhiXi    *zhixi.Robot
 }
 
-func NewNotify(config *utils.Config) *Notify {
+func newNotify(config *utils.Config) *Notify {
 
     notify := &Notify{}
 

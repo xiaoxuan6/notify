@@ -12,29 +12,29 @@ import (
 )
 
 func NewDingTalk(config *utils.Config) *dinging_talk.Robot {
-    return NewNotify(config).DingDing
+    return newNotify(config).DingDing
 }
 
 func NewFeiShu(config *utils.Config) *feishu.Robot {
-    return NewNotify(config).Feishu
+    return newNotify(config).Feishu
 }
 
 func NewPhprm(config *utils.Config) *phprm.Robot {
-    return NewNotify(config).Phprm
+    return newNotify(config).Phprm
 }
 
 func NewPushPlus(config *utils.Config) *push_plus.Robot {
-    return NewNotify(config).PushPlus
+    return newNotify(config).PushPlus
 }
 
 func NewServer(config *utils.Config) *server.Robot {
-    return NewNotify(config).Server
+    return newNotify(config).Server
 }
 
 func NewWechat(config *utils.Config) *wechat.Robot {
-    return NewNotify(config).Wechat
+    return newNotify(config).Wechat
 }
 
 func NewZhiXi(config *utils.Config) *zhixi.Robot {
-    return NewNotify(config).ZhiXi
+    return newNotify(config).ZhiXi
 }
