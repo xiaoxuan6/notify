@@ -70,7 +70,7 @@ func TestPushPlus(t *testing.T) {
 func TestPhprm(t *testing.T) {
 	var token = "1d8a3e21fac726dbe6da8bc0e463d50fs"
 	config := &utils.Config{
-		Phprm: utils.Phprm{
+		Phprm: utils.PhprmConfig{
 			Token: token,
 		},
 	}
