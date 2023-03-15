@@ -7,19 +7,31 @@
     go get github.com/xiaoxuan6/notify/v3
 
 # Usage
-```go
-
-```
-
-## Example
 
 ```php
-var token = "1d8a3e21fac726dbe6da8bc0e463d50fs"
-config := &utils.Config{
-    Phprm: utils.Phprm{
-        Token: token,
-    },
-}
+config := utils.LoadConfig("./env.yml")
+
 robot := notify.NewPhprm(config)
 robot.Send("hello phprm", "这是测试内容")
+```
+
+`env.yml` 文件在项目根目录，内容如下
+
+```bigquery
+dinging:
+  access_token:
+  secret:
+wechat:
+  key:
+feishu:
+  access_token:
+  secret:
+server:
+  webhook:
+  secret:
+  channel: 9
+push_plus:
+  token:
+phprm:
+  token: "xxx"
 ```
