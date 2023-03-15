@@ -8,7 +8,7 @@
 
 # Usage
 
-```php
+```go
 config := utils.LoadConfig("./env.yml")
 
 robot := notify.NewPhprm(config)
@@ -17,7 +17,7 @@ robot.Send("hello phprm", "这是测试内容")
 
 `env.yml` 文件在项目根目录，内容如下
 
-```bigquery
+```yaml
 dinging:
   access_token:
   secret:
@@ -33,5 +33,7 @@ server:
 push_plus:
   token:
 phprm:
+  token: "xxx"
+zhixi:
   token: "xxx"
 ```
