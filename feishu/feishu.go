@@ -5,7 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-resty/resty/v2"
-	"github.com/xiaoxuan6/notify/v3/utils"
+    "github.com/tidwall/gjson"
+    "github.com/xiaoxuan6/notify/v3/utils"
 	"time"
 )
 
@@ -98,7 +99,8 @@ func (r *Robot) send(msg interface{}) error {
 		return errors.New("json 解析数据失败")
 	}
 
-	if _, ok := item["code"]; ok {
+	code := gjson.Get(resp.String(), "code").Int()
+	if code != 0 {
 		return errors.New(item["msg"].(string))
 	}
 
