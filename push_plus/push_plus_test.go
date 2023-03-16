@@ -5,7 +5,11 @@ import (
 	"testing"
 )
 
-var robot = NewRobot("a2c05b37a66b4f86846ffbdc28fb2938")
+var robot = newRobot()
+
+func newRobot() *Robot {
+    return &Robot{}
+}
 
 func TestSendHtml(t *testing.T) {
 	message := Message{

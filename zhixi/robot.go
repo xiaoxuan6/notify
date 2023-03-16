@@ -6,18 +6,12 @@ import (
     validation "github.com/go-ozzo/ozzo-validation/v4"
     "github.com/go-resty/resty/v2"
     "github.com/pkg/errors"
+    "github.com/xiaoxuan6/notify/v3/utils"
 )
 
 const URL = "https://xizhi.qqoq.net/%s.send"
 
 type Robot struct {
-    Token string `json:"token"`
-}
-
-func NewRobot(token string) *Robot {
-    return &Robot{
-        Token: token,
-    }
 }
 
 type Response struct {
@@ -39,7 +33,7 @@ func (r *Robot) Send(title, content string) (error, Response) {
         return errors.New(err.Error()), response
     }
 
-    url := fmt.Sprintf(URL, r.Token)
+    url := fmt.Sprintf(URL, utils.GlobalConfig.ZhiXi.Token)
     res, err := resty.New().R().SetBody(requestParams).Post(url)
     if err != nil {
         return err, response

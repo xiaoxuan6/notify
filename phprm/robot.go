@@ -7,25 +7,27 @@ import (
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/go-resty/resty/v2"
 	"github.com/tidwall/gjson"
-	"net/url"
+    "github.com/xiaoxuan6/notify/v3/utils"
+    "net/url"
 )
-
-type Robot struct {
-	Token string `json:"token"`
-}
 
 const URI = "https://www.phprm.com/services/push/trigger"
 
-func NewRobot(token string) *Robot {
-	return &Robot{
-		Token: token,
-	}
+type Robot struct {
+}
+
+type Response struct {
+    Code    int    `json:"code"`
+    Message string `json:"message"`
+    Data    struct {
+        MessageIdList []string `json:"messageIdList"`
+    } `json:"data"`
 }
 
 func (r *Robot) Send(head, body string) (err error, res *Response) {
 
 	requestParams := map[string]interface{}{
-		"token": r.Token,
+		"token": utils.GlobalConfig.Phprm.Token,
 		"head":  head,
 		"body":  body,
 	}
@@ -37,7 +39,7 @@ func (r *Robot) Send(head, body string) (err error, res *Response) {
 		return errors.New(err.Error()), res
 	}
 
-	uri := fmt.Sprintf("%s/%s?head=%s&body=%s", URI, r.Token, url.QueryEscape(head), url.QueryEscape(body))
+	uri := fmt.Sprintf("%s/%s?head=%s&body=%s", URI, utils.GlobalConfig.Phprm.Token, url.QueryEscape(head), url.QueryEscape(body))
 	response, err := resty.New().R().Get(uri)
 	if err != nil {
 		return errors.New(fmt.Sprintf("请求失败：%s", err.Error())), res
