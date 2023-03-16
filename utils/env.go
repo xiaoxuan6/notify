@@ -5,6 +5,8 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
+var GlobalConfig *Config
+
 func LoadConfig(envPath string) *Config {
 	var con Config
 

@@ -20,19 +20,6 @@ const (
 )
 
 type Robot struct {
-	accessToken string
-	secret      string
-}
-
-func NewRobot(accessToken string) *Robot {
-	return &Robot{
-		accessToken: accessToken,
-	}
-}
-
-func (r *Robot) SetSecret(secret string) *Robot {
-	r.secret = secret
-	return r
 }
 
 // SendText 发送文本消息
@@ -86,11 +73,11 @@ func (r *Robot) SendImage(imageKey string) error {
 
 func (r *Robot) send(msg interface{}) error {
 
-	if len(r.secret) > 0 {
-		msg = genSigned(r.secret, msg)
+	if len(utils.GlobalConfig.Feishu.Secret) > 0 {
+		msg = genSigned(utils.GlobalConfig.Feishu.Secret, msg)
 	}
 
-	if len(r.accessToken) < 1 {
+	if len(utils.GlobalConfig.Feishu.AccessToken) < 1 {
 		return errors.New("access_token 不能为空")
 	}
 
@@ -99,7 +86,7 @@ func (r *Robot) send(msg interface{}) error {
 		return errors.New("json 格式化数据失败")
 	}
 
-	url := fmt.Sprintf("%s%s", webhook, r.accessToken)
+	url := fmt.Sprintf("%s%s", webhook, utils.GlobalConfig.Feishu.AccessToken)
 	resp, err := resty.New().R().SetBody(string(marshal)).Post(url)
 	if err != nil {
 		return errors.New(fmt.Sprintf("请求失败：%s", err.Error()))

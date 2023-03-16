@@ -26,13 +26,9 @@ func newNotify(config *utils.Config) *Notify {
 
     notify := &Notify{}
 
+    utils.GlobalConfig = config
+
     notify.DingDing = dinging.RegisterProvider(config)
-    notify.Wechat = wechat.RegisterProvider(config)
-    notify.Feishu = feishu.RegisterProvider(config)
-    notify.Server = server.RegisterProvider(config)
-    notify.PushPlus = push_plus.RegisterProvider(config)
-    notify.Phprm = phprm.RegisterProvider(config)
-    notify.ZhiXi = zhixi.RegisterProvider(config)
 
     return notify
 }
